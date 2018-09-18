@@ -1,0 +1,7 @@
+[user]
+	name = Sahithyen Kanaganayagam
+	email = mail@sahithyen.com
+[core]
+	editor = nvim
+[color]
+	ui = true
