@@ -1,5 +1,5 @@
 # Oh My Zsh
-export ZSH="/home/sahithyenk/.oh-my-zsh"
+export ZSH="~/.oh-my-zsh"
 
 ZSH_THEME="ys"
 
