@@ -9,8 +9,9 @@ call plug#end()
 " Mappings
 let mapleader = ","
 inoremap jk <esc>
-nmap ; :Buffers<CR>
-nmap <Leader>t :Files<CR>
+nmap . :
+nmap <Leader>f :Files<CR>
+nmap <Leader>d :Buffers<CR>
 
 " fzf
 let g:fzf_layout = { 'left': '~40%' }
