@@ -4,22 +4,17 @@ call plug#begin('~/.nvim-plugins')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'arcticicestudio/nord-vim'
-Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
 " Theme
 colorscheme nord
-
 set noshowmode
-let g:lightline = {
-      \ 'colorscheme': 'nord',
-      \ }
 
 " Tabs
-set tabstop=2
-set shiftwidth=2
+set tabstop=8
+set shiftwidth=8
 set expandtab
 
 " Mappings
