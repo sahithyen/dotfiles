@@ -8,6 +8,9 @@ Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
+" General
+set number
+
 " Theme
 colorscheme nord
 set noshowmode
@@ -20,7 +23,7 @@ set expandtab
 " Mappings
 let mapleader = ","
 inoremap jk <esc>
-nmap . :
+inoremap <Esc> <Nop>
 nmap <Leader>f :Files<CR>
 nmap <Leader>d :Buffers<CR>
 
