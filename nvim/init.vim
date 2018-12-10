@@ -5,6 +5,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -16,8 +17,8 @@ colorscheme nord
 set noshowmode
 
 " Tabs
-set tabstop=8
-set shiftwidth=8
+set tabstop=2
+set shiftwidth=2
 set expandtab
 
 " Mappings
@@ -32,3 +33,12 @@ let g:fzf_layout = { 'left': '~40%' }
 
 " C
 autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+
+" JavaScript
+let g:ale_linters = {
+\   'javascript': ['standard'],
+\}
+let g:ale_fixers = {'javascript': ['standard']}
+
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
