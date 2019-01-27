@@ -6,6 +6,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'w0rp/ale'
+Plug 'junegunn/goyo.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 
 call plug#end()
 
@@ -36,9 +39,11 @@ autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
 
 " JavaScript
 let g:ale_linters = {
-\   'javascript': ['standard'],
-\}
-let g:ale_fixers = {'javascript': ['standard']}
+      \   'javascript': ['standard'],
+      \}
+
+" Rust
+let g:rustfmt_autosave = 1
 
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
