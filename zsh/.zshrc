@@ -9,6 +9,8 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+export PATH="$PATH:$HOME/bin"
+
 # User configuration
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
