@@ -36,6 +36,8 @@ cd $base_dir
 #  * Git
 #  * tmux
 #  * Neovim
+#  * The Silver Searcher
+#  * fzf
 if [[ $os == "macOS" ]]
 then
 	xcode-select --install
