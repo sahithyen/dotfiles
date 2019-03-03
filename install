@@ -34,6 +34,7 @@ cd $base_dir
 # Following packages are necessary:
 #  * GNU Stow
 #  * Git
+#  * zsh
 #  * tmux
 #  * Neovim
 #  * The Silver Searcher
@@ -51,7 +52,31 @@ then
 fi
 
 #
-# Tmux
+# zsh
+#
+
+# Link configuration
+stow zsh -t $HOME
+
+if [[ $os == "macOS" ]]
+then
+  # Add brew's zsh to the allowed shells
+  zsh_path="/usr/local/bin/zsh"
+  shells_path="/etc/shells"
+
+  count=$(sudo grep $zsh_path $shells_path | wc -l)
+
+  if [[ $count -eq 0 ]]
+  then
+    echo $zsh_path | sudo tee -a $shells_path > /dev/null
+  fi
+fi
+
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+#
+# tmux
 #
 
 # Link configuration
