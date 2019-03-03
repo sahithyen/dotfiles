@@ -17,10 +17,10 @@ echo "repo: $dotfiles_repo"
 # Detect OS
 if [[ $(uname) == "Darwin" ]]
 then
-	os="macOS"
+  os="macOS"
 else
-	echo "OS is not supported"
-	exit 1
+  echo "OS is not supported"
+  exit 1
 fi
 
 # Change to base of the repository
@@ -41,22 +41,21 @@ cd $base_dir
 #  * fzf
 if [[ $os == "macOS" ]]
 then
-	xcode-select --install
+  xcode-select --install
 
-	if ! hash brew
-	then
-		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	fi
+  export HOMEBREW_NO_GITHUB_API=1
 
-	brew bundle
+  if ! hash brew > /dev/null 2>&1
+  then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+
+  brew bundle
 fi
 
 #
 # zsh
 #
-
-# Link configuration
-stow zsh -t $HOME
 
 if [[ $os == "macOS" ]]
 then
@@ -74,6 +73,14 @@ fi
 
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# Link configuration
+if [[ -f $HOME/.zshrc ]]
+then
+  rm $HOME/.zshrc
+fi
+
+stow zsh -t $HOME
 
 #
 # tmux
