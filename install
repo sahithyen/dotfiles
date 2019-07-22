@@ -14,65 +14,30 @@ echo "repo: $dotfiles_repo"
 # start
 #
 
-# Detect OS
-if [[ $(uname) == "Darwin" ]]
-then
-  os="macOS"
-else
-  echo "OS is not supported"
-  exit 1
-fi
-
 # Change to base of the repository
-base_dir="${0%/*}"
-cd $base_dir
+cd "${0%/*}"
 
 #
 # Install packages
 #
 
 # Following packages are necessary:
-#  * GNU Stow
 #  * Git
 #  * zsh
 #  * tmux
 #  * Neovim
 #  * The Silver Searcher
 #  * fzf
-if [[ $os == "macOS" ]]
-then
-  xcode-select --install
-
-  export HOMEBREW_NO_GITHUB_API=1
-
-  if ! hash brew > /dev/null 2>&1
-  then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
-
-  brew bundle
-fi
+# TODO: check dependencies
 
 #
 # zsh
 #
 
-if [[ $os == "macOS" ]]
-then
-  # Add brew's zsh to the allowed shells
-  zsh_path="/usr/local/bin/zsh"
-  shells_path="/etc/shells"
-
-  count=$(sudo grep $zsh_path $shells_path | wc -l)
-
-  if [[ $count -eq 0 ]]
-  then
-    echo $zsh_path | sudo tee -a $shells_path > /dev/null
-  fi
-fi
-
 # Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed '/\s*env zsh/d')"
+echo $HOME
+export RUNZSH=no
+sh <(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
 
 # Link configuration
 if [[ -f $HOME/.zshrc ]]
@@ -80,14 +45,14 @@ then
   rm $HOME/.zshrc
 fi
 
-stow zsh -t $HOME
+ln -s $HOME/.dotfiles/zsh/.zshrc $HOME/.zshrc
 
 #
 # tmux
 #
 
 # Link configuration
-stow tmux -t $HOME
+ln -s $HOME/.dotfiles/tmux/.tmux.conf $HOME/.tmux.conf
 
 # Install tpm
 tpm_path="$HOME/.tmux/plugins/tpm"
@@ -103,7 +68,8 @@ fi
 #
 
 # Link configuration
-stow neovim -t $HOME
+mkdir -p $HOME/.config/nvim
+ln -s $HOME/.dotfiles/neovim/.config/nvim/init.vim $HOME/.config/nvim/init.vim
 
 # Install vim-plug
 vim_plug_path="$HOME/.local/share/nvim/site/autoload/plug.vim"
