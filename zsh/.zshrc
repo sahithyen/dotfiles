@@ -16,6 +16,7 @@ export FZF_DEFAULT_COMMAND='ag -l --nocolor --hidden -g ""'
 
 alias tn='tmux new -s'
 alias ta='tmux attach -t'
-alias e='nvim `fzf`'
+alias e='nvim'
+alias ef='nvim `fzf`'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
