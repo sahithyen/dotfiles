@@ -2,7 +2,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'arcticicestudio/nord-vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug '/usr/bin/fzf'
+Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'w0rp/ale'
 
@@ -15,8 +15,8 @@ colorscheme nord
 set number
 
 " Default identation settings
-set tabstop=8
-set shiftwidth=8
+set tabstop=2
+set shiftwidth=2
 set expandtab
 
 " Mappings
