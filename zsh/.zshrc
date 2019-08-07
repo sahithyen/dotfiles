@@ -18,7 +18,7 @@ fi
 source $ZSH/oh-my-zsh.sh
 
 # fzf
-export FZF_DEFAULT_COMMAND='ag -l --nocolor --hidden -g ""'
+export FZF_DEFAULT_COMMAND='ag -l --nocolor --hidden --ignore ".git/**" -g ""'
 
 alias tn='tmux new -s'
 alias ta='tmux attach -t'
