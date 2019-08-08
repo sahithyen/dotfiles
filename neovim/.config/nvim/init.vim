@@ -4,6 +4,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -25,5 +26,13 @@ inoremap <Esc> <Nop>
 
 " fzf
 let g:fzf_layout = { 'left': '~30%' }
-
 nmap <leader>f :Files<CR>
+
+" JavaScript
+let g:ale_linters = {
+\   'javascript': ['standard'],
+\}
+let g:ale_fixers = {'javascript': ['standard']}
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
+
