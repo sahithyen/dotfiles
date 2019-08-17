@@ -1,6 +1,6 @@
 # General
 export EDITOR='nvim'
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH:$HOME/.local/bin
 
 # oh my zsh
 export ZSH="$HOME/.oh-my-zsh"
