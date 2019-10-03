@@ -1,80 +1,136 @@
-#!/bin/bash
-#
-# This script installs and configures my terminal tools.
+#!/bin/sh
 
 # Parameters
 author="Sahithyen Kanaganayagam <mail@sahithyen.com>"
-dotfiles_repo="github.com/sahithyen/dotfiles"
+dotfiles_repo="git@github.com:sahithyen/dotfiles.git"
+dotfiles_location="$HOME/.dotfiles"
+
+# This script configures my terminal tools.
+# Following binaries need to be in PATH:
+#  * git
+#  * zsh
+#  * tmux
+#  * nvim
+#  * ag
 
 # Print informations about the tool
 echo "dotfiles/install ($author)"
 echo "repo: $dotfiles_repo"
 
-#
-# start
-#
+# Check dependencies
+abort="no"
 
-# Change to base of the repository
-cd "${0%/*}"
+if ! command -v git > /dev/null 2>&1
+then
+  echo "You need to install git."
+  abort="yes"
+fi
 
-#
-# Install packages
-#
+if ! command -v zsh > /dev/null 2>&1
+then
+  echo "You need to install zsh."
+  abort="yes"
+fi
 
-# Following packages are necessary:
-#  * Git
-#  * zsh
-#  * tmux
-#  * Neovim
-#  * The Silver Searcher
-#  * fzf
-# TODO: check dependencies
+if ! command -v tmux > /dev/null 2>&1
+then
+  echo "You need to install tmux."
+  abort="yes"
+fi
+
+if ! command -v nvim > /dev/null 2>&1
+then
+  echo "You need to install nvim."
+  abort="yes"
+fi
+
+if ! command -v ag > /dev/null 2>&1
+then
+  echo "You need to install ag."
+  abort="yes"
+fi
+
+if [ "$abort" = "yes" ]
+then
+  echo "Due to missing dependencies the installation is aborted."
+  exit 1
+fi
+
+# Get .dotfiles if not already existing
+if [ ! -d $dotfiles_location ]
+then
+  git clone "$dotfiles_repo" "$dotfiles_location"
+fi
 
 #
 # zsh
 #
 
 # Install oh-my-zsh
-echo $HOME
 export RUNZSH=no
-sh <(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # Link configuration
-if [[ -f $HOME/.zshrc ]]
-then
-  rm $HOME/.zshrc
-fi
-
-ln -s $HOME/.dotfiles/zsh/.zshrc $HOME/.zshrc
+[ -f $HOME/.zshrc ] && mv $HOME/.zshrc $HOME/.zshrc.bak
+ln -s $dotfiles_location/zsh/.zshrc $HOME/.zshrc
 
 #
 # tmux
 #
 
 # Link configuration
-ln -s $HOME/.dotfiles/tmux/.tmux.conf $HOME/.tmux.conf
+[ -f $HOME/.tmux.conf ] && mv $HOME/.tmux.conf $HOME/.tmux.conf.bak
+ln -s $dotfiles_location/tmux/.tmux.conf $HOME/.tmux.conf
 
 # Install tpm
 tpm_path="$HOME/.tmux/plugins/tpm"
 tpm_repo="https://github.com/tmux-plugins/tpm"
 
-if [[ ! -e $tpm_path ]]
+if [ ! -d "$tpm_path" ]
 then
-  git clone $tpm_repo $tpm_path
+  git clone --depth 1 "$tpm_repo" "$tpm_path"
 fi
 
+# Install plugins
+tmux new-session -d -s tpm-install
+sleep 1
+tmux source-file $HOME/.tmux.conf
+"$tpm_path/bin/install_plugins"
+tmux kill-session -t tpm-install
+
 #
-# Neovim
+# fzf
+#
+
+fzf_path="$HOME/.fzf"
+fzf_repo="https://github.com/junegunn/fzf.git"
+
+if [ ! -d "$fzf_path" ]
+then
+  git clone --depth 1 "$fzf_repo" "$fzf_path"
+fi
+
+$HOME/.fzf/install --no-key-bindings --completion --update-rc
+
+#
+# nvim
 #
 
 # Link configuration
 mkdir -p $HOME/.config/nvim
-ln -s $HOME/.dotfiles/neovim/.config/nvim/init.vim $HOME/.config/nvim/init.vim
+
+if [ -f $HOME/.config/nvim/init.vim ]
+then
+  mv $HOME/.config/nvim/init.vim $HOME/.config/nvim/init.vim.bak
+fi
+
+ln -s $dotfiles_location/neovim/.config/nvim/init.vim $HOME/.config/nvim/init.vim
 
 # Install vim-plug
 vim_plug_path="$HOME/.local/share/nvim/site/autoload/plug.vim"
 vim_plug_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-if [[ ! -f $vim_plug_path ]]
+
+if [ ! -f $vim_plug_path ]
 then
   curl -fLo $vim_plug_path --create-dirs $vim_plug_url
 fi
