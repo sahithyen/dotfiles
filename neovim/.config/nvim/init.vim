@@ -8,7 +8,7 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " Setup theme
-colorscheme nord
+silent! colorscheme nord
 
 " General
 set number
