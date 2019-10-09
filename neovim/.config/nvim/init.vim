@@ -14,6 +14,12 @@ silent! colorscheme nord
 set number
 set colorcolumn=80
 
+" Identation
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+
 " Mappings
 let mapleader = ","
 inoremap jk <Esc>

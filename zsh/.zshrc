@@ -1,3 +1,13 @@
+# vi mode
+bindkey 'jk' vi-cmd-mode
+bindkey -v
+
+zle-line-init() {
+  zle -K vicmd
+}
+
+zle -N zle-line-init
+
 # costum scripts
 export PATH="$HOME/bin:$PATH"
 
@@ -15,6 +25,7 @@ alias ef='nvim `fzf`'
 # tmux
 alias tn='tmux new -s'
 alias ta='tmux attach -t'
+alias tl='tmux ls'
 
 # fzf
 export FZF_DEFAULT_COMMAND='ag -l --nocolor --hidden --ignore ".git/**" -g ""'
