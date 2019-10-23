@@ -8,6 +8,11 @@ zle-line-init() {
 
 zle -N zle-line-init
 
+# tilix
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+  source /etc/profile.d/vte.sh
+fi
+
 # npm
 NPM_PACKAGES="${HOME}/.npm-packages"
 export PATH="$PATH:$NPM_PACKAGES/bin"
