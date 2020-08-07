@@ -5,6 +5,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'dense-analysis/ale'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
@@ -34,10 +35,12 @@ nmap <leader>f :Files<CR>
 
 let g:ale_linters = {
 \ 'javascript': ['eslint'],
+\ 'rust': ['rls'],
 \}
 let g:ale_fixers = {
 \ '*': ['remove_trailing_lines', 'trim_whitespace'],
 \ 'javascript': ['eslint'],
+\ 'rust': ['rustfmt'],
 \}
 
 let g:ale_lint_on_save = 1
