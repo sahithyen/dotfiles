@@ -31,6 +31,8 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='nvim'
 alias e='nvim'
 alias ef='nvim `fzf`'
+alias ee='sudo -E nvim'
+alias eef='sudo -E nvim `fzf`'
 
 # tmux
 alias tn='tmux new -s'
