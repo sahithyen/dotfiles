@@ -15,7 +15,7 @@ fi
 
 # npm
 NPM_PACKAGES="${HOME}/.npm-packages"
-export PATH="$PATH:$NPM_PACKAGES/bin:$HOME/.cargo/bin"
+export PATH="$PATH:$NPM_PACKAGES/bin:$HOME/.cargo/bin:$HOME/.local/bin"
 export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
 # costum scripts
@@ -23,7 +23,7 @@ export PATH="$HOME/bin:$PATH"
 
 # oh my zsh
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="lambda"
+ZSH_THEME="dracula-pro"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
@@ -33,6 +33,8 @@ alias e='nvim'
 alias ef='nvim `fzf`'
 alias ee='sudo -E nvim'
 alias eef='sudo -E nvim `fzf`'
+
+alias es='. /opt/fslc-x11-eaton/3.0/environment-setup-cortexa7t2hf-neon-fslc-linux-gnueabi'
 
 # tmux
 alias tn='tmux new -s'

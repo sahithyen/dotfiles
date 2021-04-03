@@ -1,3 +1,5 @@
+let g:ale_completion_enabled = 1
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'arcticicestudio/nord-vim'
@@ -9,11 +11,15 @@ Plug 'junegunn/goyo.vim'
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
 
 call plug#end()
 
 " Setup theme
-silent! colorscheme nord
+packadd! dracula_pro
+syntax enable
+let g:dracula_colorterm = 0
+colorscheme dracula_pro
 
 " General
 set number
@@ -27,24 +33,29 @@ set expandtab
 
 " Mappings
 let mapleader = ","
+tnoremap jk <C-\><C-n>
 inoremap jk <Esc>
 inoremap <Esc> <Nop>
 
 " fzf
 let g:fzf_layout = { 'left': '~30%' }
 nmap <leader>f :Files<CR>
+nmap <leader>r :ALERename<CR>
 
 " Language server
 
 let g:ale_linters = {
 \ 'javascript': ['eslint'],
 \ 'rust': ['rls'],
+\ 'python': ['flake8'],
 \}
+
 let g:ale_fixers = {
-\ '*': ['remove_trailing_lines', 'trim_whitespace'],
 \ 'javascript': ['eslint'],
 \ 'rust': ['rustfmt'],
 \}
 
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
+
+let g:rooter_patterns = ['.git']
