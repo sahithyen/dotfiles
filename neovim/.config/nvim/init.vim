@@ -1,17 +1,17 @@
-let g:ale_completion_enabled = 1
-
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'junegunn/goyo.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'dense-analysis/ale'
-Plug 'junegunn/goyo.vim'
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
 
 call plug#end()
 
@@ -38,22 +38,12 @@ inoremap <Esc> <Nop>
 " fzf
 let g:fzf_layout = { 'left': '~30%' }
 nmap <leader>f :Files<CR>
-nmap <leader>r :ALERename<CR>
 
-" Language server
+" lsp
+lua << EOF
+require'lspconfig'.clangd.setup{}
+EOF
 
-let g:ale_linters = {
-\ 'javascript': ['eslint'],
-\ 'rust': ['rls'],
-\ 'python': ['flake8'],
-\}
-
-let g:ale_fixers = {
-\ 'javascript': ['eslint'],
-\ 'rust': ['rustfmt'],
-\}
-
-let g:ale_lint_on_save = 1
-let g:ale_fix_on_save = 1
+nnoremap <silent> <leader>d <cmd>lua vim.lsp.buf.definition()<CR>
 
 let g:rooter_patterns = ['.git']
