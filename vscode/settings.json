@@ -1,5 +1,13 @@
 {
     "workbench.colorTheme": "Default Dark+",
     "editor.formatOnSave": true,
-    "git.autofetch": true
+    "git.autofetch": true,
+    "eslint.format.enable": true,
+    "eslint.lintTask.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.validate": [
+        "javascript"
+    ]
 }
