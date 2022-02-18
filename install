@@ -138,3 +138,8 @@ fi
 # Install plugins
 nvim -c "PlugInstall" -c "qa!"
 
+#
+# vscode
+#
+
+ln -s $dotfiles_location/vscode/settings.json $HOME/.config/Code/User/settings.json
